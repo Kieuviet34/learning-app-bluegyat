@@ -1,7 +1,7 @@
 package learningapp.Model;
 
 
-import learningapp.Value.Role;
+import learningapp.dto.Role;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
