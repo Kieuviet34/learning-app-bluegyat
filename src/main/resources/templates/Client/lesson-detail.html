@@ -1,46 +1,85 @@
+<!-- src/main/resources/templates/lesson-detail.html -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>lesson-detail</title>
-    <link rel="stylesheet" href="style.css">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments :: commonHead}">
+    <title>Bài chi tiết</title>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.34.0/min/vs/loader.js"></script>
+    <style>
+        #editor { height: 60vh; border: 1px solid #ddd; }
+        #controls { margin: .5rem 0; }
+        #input, #output { width: 100%; height: 8rem; font-family: monospace; }
+    </style>
 </head>
-<body>
-<header class="container">
-    <div class="logo">Bluegyat</div>
-    <nav>
-        <a href="home.html">Home</a>
-        <a href="courses.html">Khóa học</a>
-        <a href="challenge.html">Thử thách</a>
-        <a href="profile.html">Profile</a>
-    </nav>
-</header>
-<main class="container grid" style="grid-template-columns: 40% 60%; height: calc(100vh - 8rem);">
-    <div class="lesson-panel">
-        <h2>Bài 1: Biến và kiểu dữ liệu</h2>
-        <p>Nội dung lý thuyết, ví dụ, hình ảnh minh họa…</p>
-    </div>
-    <div class="card code-panel">
-        <h3>Thực hành</h3>
-        <textarea id="codeArea">// Viết code ở đây</textarea>
-        <div class="buttons">
-            <button onclick="runCode()">Chạy Code</button>
-            <button onclick="clearOutput()">Xóa Output</button>
+<body class="d-flex flex-column min-vh-100">
+<div th:insert="~{fragments :: navbar}"></div>
+<main class="container flex-grow-1 my-4">
+    <div class="row">
+        <!-- left panel: dummy content example -->
+        <div class="col-md-5">
+            <h2 th:text="'Bài ' + ${lesson.sortOrder} + ': ' + ${lesson.title}">Lesson Title</h2>
+            <p>Trong bài này, bạn sẽ tìm hiểu về biến và kiểu dữ liệu trong C/C++.</p>
+            <ul>
+                <li>Giới thiệu về biến và phạm vi biến</li>
+                <li>Các kiểu dữ liệu nguyên thủy: int, float, double, char</li>
+                <li>Cách khởi tạo và gán giá trị</li>
+                <li>Ví dụ minh họa với phép toán đơn giản</li>
+            </ul>
+            <p>Ví dụ:</p>
+            <pre><code>int a = 5;
+float b = 2.5;
+char c = 'A';</code></pre>
         </div>
-        <div class="output" id="outputPanel"></div>
+
+        <!-- right panel: Monaco IDE -->
+        <div class="col-md-7">
+            <h3>Thực hành</h3>
+            <div id="editor"></div>
+
+            <div id="controls">
+                <label>Input:</label>
+                <textarea id="input" placeholder="Nhập test case…"
+                          th:text="${stubInput}">5</textarea>
+                <button id="run" class="btn btn-primary btn-sm mt-2">Run</button>
+                <button id="clear" class="btn btn-outline-secondary btn-sm mt-2">Clear</button>
+            </div>
+
+            <label>Output:</label>
+            <pre id="output" class="border p-2 bg-light"></pre>
+        </div>
     </div>
 </main>
-<footer class="footer">© 2025 Bluegyat</footer>
+
+<div th:insert="fragments/footer :: footer"></div>
+
 <script>
-    function runCode() {
-        const code = document.getElementById("codeArea").value;
-        const output = document.getElementById("outputPanel");
-        // Placeholder giả lập
-        output.innerText += '> ' + code.split('\\n').join('\\n> ') + '\\n';
-    }
-    function clearOutput() {
-        document.getElementById("outputPanel").innerText = '';
-    }
+    require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.34.0/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+        window.editor = monaco.editor.create(
+            document.getElementById('editor'),
+            {
+                value: /*[[${stubCode}]]*/ `#include <iostream>\nint main() { std::cout << "Hello"; return 0; }`,
+                language: /*[[${language}]]*/ 'cpp',
+                theme: 'vs-dark',
+                automaticLayout: true
+            }
+        );
+    });
+
+    document.getElementById('run').addEventListener('click', async () => {
+        const code = window.editor.getValue();
+        const input = document.getElementById('input').value;
+        const resp = await fetch('/api/run', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ language: /*[[${language}]]*/'cpp', code, input })
+        });
+        const data = await resp.json();
+        document.getElementById('output').innerText = data.output;
+    });
+
+    document.getElementById('clear').addEventListener('click', () => {
+        document.getElementById('output').innerText = '';
+    });
 </script>
 </body>
 </html>
