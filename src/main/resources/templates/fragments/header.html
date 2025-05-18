@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>sourses-detail</title>
-    <link rel="stylesheet" href="style.css">
+<!-- src/main/resources/templates/fragments/header.html -->
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <title th:insert="~{::title}">Lesson</title>
 </head>
-<body>
-<header class="container">
-    <div class="logo">Bluegyat</div>
-    <nav>
-        <a href="/home">Home</a>
-        <a href="/courses">Khóa học</a>
-        <a href="/challenge">Thử thách</a>
-        <a href="/profile">Profile</a>
-    </nav>
-</header>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">…</nav>
+</div>
