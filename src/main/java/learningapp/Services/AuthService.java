@@ -4,7 +4,7 @@ import learningapp.Model.RefreshToken;
 import learningapp.Model.User;
 import learningapp.Repository.IRefreshTokenRepository;
 import learningapp.Repository.IUserRepository;
-import learningapp.Value.Role;
+import learningapp.dto.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
