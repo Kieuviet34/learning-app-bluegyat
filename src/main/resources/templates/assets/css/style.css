@@ -1,0 +1,139 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --light-bg: #f8f9fa;
+    --dark-bg: #343a40;
+    --white: #ffffff;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--light-bg);
+    color: var(--dark-bg);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    background-color: var(--white);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+nav {
+    margin-top: 0.5rem;
+}
+nav a {
+    margin-right: 1.5rem;
+    font-weight: 500;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+.grid-2 {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+button,
+input[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+button:hover,
+input[type="submit"]:hover {
+    filter: brightness(0.9);
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-family: var(--font-family);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+.form-inline {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+/* Specific panels */
+
+.lesson-panel {
+    background-color: var(--white);
+    padding: 2rem;
+    border-right: 1px solid #e0e0e0;
+    overflow-y: auto;
+}
+
+.code-panel textarea {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    height: 60vh;
+    resize: vertical;
+}
+
+.output {
+    background-color: #1e1e1e;
+    color: #00ff00;
+    padding: 1rem;
+    height: 15vh;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    border-radius: 4px;
+}

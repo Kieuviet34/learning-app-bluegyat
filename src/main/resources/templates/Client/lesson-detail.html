@@ -2,9 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>lesson-detail</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<header class="container">
+    <div class="logo">Bluegyat</div>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="courses.html">Khóa học</a>
+        <a href="challenge.html">Thử thách</a>
+        <a href="profile.html">Profile</a>
+    </nav>
+</header>
+<main class="container grid" style="grid-template-columns: 40% 60%; height: calc(100vh - 8rem);">
+    <div class="lesson-panel">
+        <h2>Bài 1: Biến và kiểu dữ liệu</h2>
+        <p>Nội dung lý thuyết, ví dụ, hình ảnh minh họa…</p>
+    </div>
+    <div class="card code-panel">
+        <h3>Thực hành</h3>
+        <textarea id="codeArea">// Viết code ở đây</textarea>
+        <div class="buttons">
+            <button onclick="runCode()">Chạy Code</button>
+            <button onclick="clearOutput()">Xóa Output</button>
+        </div>
+        <div class="output" id="outputPanel"></div>
+    </div>
+</main>
+<footer class="footer">© 2025 Bluegyat</footer>
+<script>
+    function runCode() {
+        const code = document.getElementById("codeArea").value;
+        const output = document.getElementById("outputPanel");
+        // Placeholder giả lập
+        output.innerText += '> ' + code.split('\\n').join('\\n> ') + '\\n';
+    }
+    function clearOutput() {
+        document.getElementById("outputPanel").innerText = '';
+    }
+</script>
 </body>
 </html>
