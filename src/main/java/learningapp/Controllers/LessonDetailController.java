@@ -12,28 +12,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class LessonDetailController {
-    @Autowired
-    private LessonService lessonService;
-    @Autowired
-    private ChallengeService challengeService;
+//    @Autowired
+//    private LessonService lessonService;
+//    @Autowired
+//    private ChallengeService challengeService;
 
+//    @GetMapping("/lesson/lesson-detail")
+//    public String lessonDetail(
+//            @PathVariable("lang") String lang,
+//            @PathVariable("lessonId") Long lessonId,
+//            Model model) {
+//        Lesson lesson = lessonService.findById(lessonId);
+//        Challenge challenge = challengeService .listByLesson(lessonId)
+//                .stream()
+//                .findFirst()
+//                .orElseThrow(() -> new IllegalArgumentException("No challenge for lesson " + lessonId));
+//        model.addAttribute("lesson", lesson);
+//        model.addAttribute("challenge", challenge);
+//        model.addAttribute("language", lang.toLowerCase());
+//        // stubCode và testSuite lấy từ challenge
+//        model.addAttribute("stubCode", challenge.getStubCode());
+//        model.addAttribute("stubInput", challenge.getTestSuite());
+//        return "Client/lesson-detail";
+//    }
     @GetMapping("/lesson/lesson-detail")
-    public String lessonDetail(
-            @PathVariable("lang") String lang,
-            @PathVariable("lessonId") Long lessonId,
-            Model model
-    ) {
-        Lesson lesson = lessonService.findById(lessonId);
-        Challenge challenge = challengeService .listByLesson(lessonId)
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No challenge for lesson " + lessonId));
-        model.addAttribute("lesson", lesson);
-        model.addAttribute("challenge", challenge);
-        model.addAttribute("language", lang.toLowerCase());
-        // stubCode và testSuite lấy từ challenge
-        model.addAttribute("stubCode", challenge.getStubCode());
-        model.addAttribute("stubInput", challenge.getTestSuite());
+    public String lessonDetail(){
         return "Client/lesson-detail";
     }
 }
